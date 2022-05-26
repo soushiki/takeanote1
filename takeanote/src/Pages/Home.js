@@ -2,28 +2,29 @@ import { gapi } from 'gapi-script';
 import { useContext, useEffect } from 'react';
 import Login from '../components/Login';
 import global from '../helpers/global';
-import {useHistory} from "react-router-dom";
-import {SCOPES,} from '../../types';
+import {useNavigate} from "react-router-dom";
 import Logo from '../img/logo.png';
 import AuthContext from "../context/authentication/authContext";
 import Logout from '../components/Logout';
+import Routes from '../helpers/Routes';
 
 const Home = () => {
     const authContext = useContext(AuthContext);
     const { usuario, autenticado, usuarioAutenticado } = authContext;
-    const history = useHistory()
+    const navigate = useNavigate();
     
     
-    useEffect(() => {
-        if (!usuario) {
-          usuarioAutenticado();
-        }
-      }, []);
+
+    //useEffect(() => {
+      //usuarioAutenticado();
+      //  if (autenticado) {
+      //      navigate(Routes.choose, {replace: true});
+      //  }
+      //  }, [autenticado]);
     useEffect(() => {
         const start = () => {
             gapi.client.init({
                 clientId: global.clientId,
-                scope: SCOPES
             });
         }
         gapi.load("client:auth2". start);
